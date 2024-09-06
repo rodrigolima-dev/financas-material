@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {Background, Container, Logo, AreaInput, Input, SubmitButton, Link, LinkText, SubmitText} from "./styles"
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from '../../contexts/auth'
+import { Alert } from "react-native";
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigation = useNavigation();
 
+  const navigation = useNavigation();
+  const { user } = useContext(AuthContext);
+
+  function hangleLogin() {
+    console.log(user.name)
+  }
 
   return (
     <Background>
@@ -33,7 +40,7 @@ export default function SignIn() {
               
             </AreaInput>
 
-            <SubmitButton>
+            <SubmitButton onPress={() => hangleLogin()}>
               <SubmitText>Acessar</SubmitText>
             </SubmitButton>
 

@@ -5,13 +5,16 @@ import { StyleSheet, Text, View } from 'react-native';
 import { database, ref } from './src/services/firebaseConnection';
 import { NavigationContainer } from '@react-navigation/native';
 
+import AuthProvider from './src/contexts/auth';
 import Routes from './src/routes';
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Routes/>
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <Routes/>
+      </NavigationContainer>
+    </AuthProvider>
   );
 }
 
