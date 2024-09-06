@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {Background, Container, Logo, AreaInput, Input, SubmitButton, SubmitText} from "../SignIn/styles"
+import { AuthContext } from "../../contexts/auth";
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   
+  const { signUp } = useContext(AuthContext); 
 
+  function handleSignUp () {
+    signUp(email, password, name)
+  }
+  
   return (
     <Background>
           <Container>
@@ -40,7 +46,7 @@ export default function SignIn() {
               
             </AreaInput>
 
-            <SubmitButton>
+            <SubmitButton onPress={handleSignUp}>
               <SubmitText>Criar conta</SubmitText>
             </SubmitButton>
           </Container>
