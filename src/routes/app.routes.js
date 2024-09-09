@@ -15,12 +15,13 @@ export default function AppRoutes() {
       drawerInactiveBackgroundColor: '#ddd',
       drawerItemStyle: {
         marginVertical: 5
-      }
+      },
+      headerShown: false
     }}
     >
         <AppDrawer.Screen name="Home" component={Home}/>
-        <AppDrawer.Screen name="Register" component={New}/>
-        <AppDrawer.Screen name="Profile" component={Profile}/>
+        <AppDrawer.Screen name="Registrar" component={New}/>
+        <AppDrawer.Screen name="Perfil" component={Profile}/>
     </AppDrawer.Navigator>
   );
 }

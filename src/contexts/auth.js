@@ -89,7 +89,7 @@ export default function AuthProvider ({ children }) {
 
     return (
         //!! está convertendo user para booleano, se estiver null é false.
-        <AuthContext.Provider value={{signed: !!user, user, loading, signUp, signIn, signOut }}>
+        <AuthContext.Provider value={{signed: !!user, user, loading, signUp, signIn, SignOut }}>
             {children}
         </AuthContext.Provider>
     );
