@@ -9,10 +9,10 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
 
   const navigation = useNavigation();
-  const { user } = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
 
   function hangleLogin() {
-    console.log(user.name)
+    signIn(email, password);
   }
 
   return (
