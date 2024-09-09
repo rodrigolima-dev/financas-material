@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { database } from "../services/firebaseConnection";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { onValue, ref, set } from "firebase/database";
 import { Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -79,13 +79,17 @@ export default function AuthProvider ({ children }) {
         await AsyncStorage.setItem('Auth_user', JSON.stringify(data));
     }
 
-    async function signOut () {
-        await auth.signOut
+    async function SignOut() {
+        await signOut(auth);
+        await AsyncStorage.clear()
+        .then(() => {
+            setUser(null)
+        })
     }
 
     return (
         //!! está convertendo user para booleano, se estiver null é false.
-        <AuthContext.Provider value={{signed: !!user, user, signUp, signIn, loading}}>
+        <AuthContext.Provider value={{signed: !!user, user, loading, signUp, signIn, signOut }}>
             {children}
         </AuthContext.Provider>
     );
