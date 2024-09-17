@@ -12,20 +12,20 @@ export const Container = styled.View `
     margin-bottom: 25px;
 `;
 
-export const Name = styled.View `
+export const Name = styled.Text `
     font-size: 19px;
     color: #fff;
     font-style: italic;
 `;
 
-export const Sale = styled.View `
+export const Sale = styled.Text `
     margin-top: 5px;
     font-size: 30px;
     color: #fff;
     font-weight: bold;
 `;
 
-export const Title = styled.View `
+export const Title = styled.Text `
     margin-left: 15px;
     color: #fff;
     margin-bottom: 10px;
