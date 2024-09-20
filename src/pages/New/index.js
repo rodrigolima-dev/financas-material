@@ -26,10 +26,14 @@ export default function New() {
     
     //Pegando uid do context.
     let uid = user.uid
+    const currentDate = new Date();
+    const formattedDate = 
+    `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
 
     await push(ref(database,`history/${uid}`), {
       type: type,
       value: parseFloat(value),
+      date: formattedDate
     })
 
     //Atualizando saldo

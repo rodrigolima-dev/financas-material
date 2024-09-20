@@ -11,6 +11,7 @@ export const AuthContext = createContext({});
 export default function AuthProvider ({ children }) {
     const [ user, setUser ] = useState(null);
     const [ loading, setLoading ] = useState(true);
+    const [ loadingAuth, setLoadingAuth ] = useState(false);
     const auth = getAuth();
 
     useEffect(() => {
@@ -30,6 +31,8 @@ export default function AuthProvider ({ children }) {
 
     //Cadastrar usuário
     async function signUp(email, password, name) {
+        setLoadingAuth(true); //Começa o loading
+
         await createUserWithEmailAndPassword(auth, email, password)
         .then(async (value) => {
             let uid = value.user.uid;
@@ -47,11 +50,17 @@ export default function AuthProvider ({ children }) {
                 };
                 setUser(data);
                 storageUser(data);
+                setLoadingAuth(false); //Termina o loading
             })
+        })
+        .catch(() =>{
+            window.alert('Tente novamente.');
+            setLoadingAuth(false); //Termina o loading
         })
     }
 
     async function signIn (email, password){
+        setLoadingAuth(true); //Começa o loading
         await signInWithEmailAndPassword(auth, email, password)
         .then(async (value) => {
             let uid = value.user.uid;
@@ -66,12 +75,15 @@ export default function AuthProvider ({ children }) {
 
                 setUser(data);
                 storageUser(data);
+                setLoadingAuth(false); //Termina o loading
+
             }, {
                 onlyOnce: true
             })
         })
         .catch((err) => {
-            Alert.alert(err.code)
+            window.alert('Usuário ou senha incorreto(s).');   
+            setLoadingAuth(false); //Termina o loading
         })
     }
 
@@ -89,7 +101,7 @@ export default function AuthProvider ({ children }) {
 
     return (
         //!! está convertendo user para booleano, se estiver null é false.
-        <AuthContext.Provider value={{signed: !!user, user, loading, signUp, signIn, SignOut }}>
+        <AuthContext.Provider value={{signed: !!user, user, loading, signUp, signIn, SignOut, loadingAuth }}>
             {children}
         </AuthContext.Provider>
     );

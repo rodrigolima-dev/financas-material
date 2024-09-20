@@ -3,13 +3,14 @@ import {Background, Container, Logo, AreaInput, Input, SubmitButton, Link, LinkT
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from '../../contexts/auth'
 import { Alert } from "react-native";
+import { ActivityIndicator } from "react-native-web";
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigation = useNavigation();
-  const { signIn } = useContext(AuthContext);
+  const { signIn, loadingAuth } = useContext(AuthContext);
 
   function hangleLogin() {
     signIn(email, password);
@@ -36,12 +37,22 @@ export default function SignIn() {
               autoCorrect={false}
               autoCapitalize="none"
               onChangeText={(text) => setPassword(text)}
+              secureTextEntry={true}
+
               />
               
             </AreaInput>
 
             <SubmitButton onPress={() => hangleLogin()}>
-              <SubmitText>Acessar</SubmitText>
+              <SubmitText>
+                { loadingAuth ? (
+                    <ActivityIndicator size={20} color='#fff'/>
+                  ) : (
+                    <SubmitText>Acessar</SubmitText>
+                  )
+                } 
+              </SubmitText>
+
             </SubmitButton>
 
             <Link onPress={() => navigation.navigate('SignUp')}>
